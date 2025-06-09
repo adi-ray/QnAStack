@@ -60,14 +60,13 @@ export default function Login() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-none border border-solid border-white/30 bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
+    <div className="mt-4 mx-auto w-full max-w-md rounded-none border border-solid border-white/30 bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Login to QnAStack
       </h2>
-      <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-        Login to QnAStack
+      <p className="max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
         <br /> If you don&apos;t have an account,{" "}
-        <Link href="/register" className="text-orange-500 hover:underline">
+        <Link href="/signup" className="text-orange-500 hover:underline">
           register
         </Link>{" "}
         with QnAStack
