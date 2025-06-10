@@ -3,7 +3,7 @@ import {
   db,
   questionCollection,
   voteCollection,
-} from "@/models/name";
+} from "@/models";
 import { databases, users } from "@/models/server/config";
 import { UserPrefs } from "@/store/Auth";
 import { NextRequest, NextResponse } from "next/server";
