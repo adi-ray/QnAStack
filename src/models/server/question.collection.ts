@@ -1,6 +1,6 @@
 import { IndexType, Permission } from "node-appwrite";
 
-import { db, questionCollection } from "../name";
+import { db, questionCollection } from "../index";
 import { databases } from "./config";
 
 export default async function createQuestionCollection() {

@@ -1,4 +1,4 @@
-import { db } from "../name";
+import { db } from "../index";
 import createAnswerCollection from "./answer.collection";
 import createCommentCollection from "./comment.collection";
 import createQuestionCollection from "./question.collection";

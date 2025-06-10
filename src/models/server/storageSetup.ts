@@ -1,5 +1,5 @@
 import { Permission } from "node-appwrite";
-import { attachmentBucket } from "../name";
+import { attachmentBucket } from "../index";
 import { storage } from "./config";
 
 export default async function getOrCreateStorage() {
