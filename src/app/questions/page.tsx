@@ -17,22 +17,22 @@ import Search from "./Search";
 const Page = async ({
   searchParams,
 }: {
-  searchParams: { page?: string; tag?: string; search?: string };
+  searchParams: Promise<{ page?: string; tag?: string; search?: string }>;
 }) => {
-  searchParams.page ||= "1";
-
+  const resolvedSearchParams = await searchParams;
+  resolvedSearchParams.page ||= "1";
   const queries = [
     Query.orderDesc("$createdAt"),
-    Query.offset((+searchParams.page - 1) * 25),
+    Query.offset((+resolvedSearchParams.page - 1) * 25),
     Query.limit(25),
   ];
 
-  if (searchParams.tag) queries.push(Query.equal("tags", searchParams.tag));
-  if (searchParams.search)
+  if (resolvedSearchParams.tag) queries.push(Query.equal("tags", resolvedSearchParams.tag));
+  if (resolvedSearchParams.search)
     queries.push(
       Query.or([
-        Query.search("title", searchParams.search),
-        Query.search("content", searchParams.search),
+        Query.search("title", resolvedSearchParams.search),
+        Query.search("content", resolvedSearchParams.search),
       ])
     );
 
@@ -41,7 +41,7 @@ const Page = async ({
     questionCollection,
     queries
   );
-  console.log("Questions", questions);
+  console.log("Questions", questions.total);
 
   questions.documents = await Promise.all(
     questions.documents.map(async (ques) => {
@@ -72,8 +72,8 @@ const Page = async ({
   );
 
   return (
-    <div className="container mx-auto px-4 pb-20 pt-36">
-      <div className="mb-10 flex items-center justify-between">
+    <div className="container mx-auto px-4 py-10 space-y-10">
+      <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">All Questions</h1>
         <Link href="/questions/ask">
           <ShimmerButton className="shadow-2xl">
@@ -83,13 +83,9 @@ const Page = async ({
           </ShimmerButton>
         </Link>
       </div>
-      <div className="mb-4">
-        <Search />
-      </div>
-      <div className="mb-4">
-        <p>{questions.total} questions</p>
-      </div>
+      <Search />
       <div className="mb-4 max-w-3xl space-y-6">
+        <h2 className="text-xl font-bold">{questions.total} Questions</h2>
         {questions.documents.map((ques) => (
           <QuestionCard key={ques.$id} ques={ques} />
         ))}
